@@ -1,5 +1,5 @@
 /* ==========================================================
-   landing-page-solar-system.js
+   landing-page-battery.js
    - Scroll reveal (replays on scroll up/down)
    - Optional: adjust initial hash scroll for fixed header
    - Optional: smooth scroll for [data-scroll-to] anchors
@@ -7,8 +7,8 @@
 
 /* ===== CONFIG ===== */
 const SOLAR = {
-  revealSelector: '.reveal-solar-system',
-  inViewClass: 'in-view-solar-system',
+  revealSelector: '.reveal-battery',
+  inViewClass: 'in-view-battery',
   headerSelector: '.header',
   anchorSelector: '[data-scroll-to]'
 };
@@ -80,18 +80,18 @@ function smoothScrollTo(targetSelector) {
    Logos pager (dots) + continuous marquee coexist (robust)
    ========================================================== */
 (function initLogosPager() {
-  const wrap = document.querySelector('.logos-wrap-solar-system');
-  const track = document.getElementById('logos-track-solar-system');
-  const dotsWrap = document.getElementById('dots-solar-system');
+  const wrap = document.querySelector('.logos-wrap-battery');
+  const track = document.getElementById('logos-track-battery');
+  const dotsWrap = document.getElementById('dots-battery');
   if (!wrap || !track || !dotsWrap) return;
 
-  const dots = Array.from(dotsWrap.querySelectorAll('.dot-solar-system'));
+  const dots = Array.from(dotsWrap.querySelectorAll('.dot-battery'));
   const RESUME_DELAY = 3500; // ms after click before continuous scroll resumes
   let resumeTimer = null;
 
   // set active dot helper
   function setActiveDot(idx) {
-    dots.forEach((d, i) => d.classList.toggle('is-active-solar-system', i === idx));
+    dots.forEach((d, i) => d.classList.toggle('is-active-battery', i === idx));
   }
   setActiveDot(0);
 
@@ -100,7 +100,7 @@ function smoothScrollTo(targetSelector) {
 
   // Fully disable CSS animation and let us control transform
   function enterManualMode() {
-    track.classList.add('manual-solar-system');
+    track.classList.add('manual-battery');
     track.style.animationPlayState = 'paused';
   }
 
@@ -108,7 +108,7 @@ function smoothScrollTo(targetSelector) {
   function resumeContinuous() {
     // remove manual transform + class and restart animation cleanly
     track.style.transform = '';
-    track.classList.remove('manual-solar-system');
+    track.classList.remove('manual-battery');
 
     // Restart the CSS animation reliably (toggle to 'none' then back)
     const prevAnim = getComputedStyle(track).animation;
@@ -146,8 +146,8 @@ function smoothScrollTo(targetSelector) {
 
   // Maintain the same page on resize while paused
   const ro = new ResizeObserver(() => {
-    const active = dots.findIndex(el => el.classList.contains('is-active-solar-system'));
-    if (active > -1 && track.classList.contains('manual-solar-system')) {
+    const active = dots.findIndex(el => el.classList.contains('is-active-battery'));
+    if (active > -1 && track.classList.contains('manual-battery')) {
       track.style.transform = `translateX(${-active * pageWidth()}px)`;
     }
   });
@@ -155,12 +155,12 @@ function smoothScrollTo(targetSelector) {
 
   // Also pause marquee on hover (optional, keeps prior UX)
   wrap.addEventListener('mouseenter', () => {
-    if (!track.classList.contains('manual-solar-system')) {
+    if (!track.classList.contains('manual-battery')) {
       track.style.animationPlayState = 'paused';
     }
   });
   wrap.addEventListener('mouseleave', () => {
-    if (!track.classList.contains('manual-solar-system')) {
+    if (!track.classList.contains('manual-battery')) {
       track.style.animationPlayState = 'running';
     }
   });
@@ -171,7 +171,7 @@ function smoothScrollTo(targetSelector) {
    Count-up animation for Impact stats
    ========================================================== */
 (function initImpactCounters() {
-  const items = document.querySelectorAll('.stat-value-solar-system-impact');
+  const items = document.querySelectorAll('.stat-value-battery-impact');
   if (!items.length) return;
 
   function countTo(el) {
@@ -220,12 +220,12 @@ function smoothScrollTo(targetSelector) {
    Solutions: "View All Solutions" toggle
    ========================================================== */
 (function initSolutionsToggle() {
-  const grid = document.getElementById('solutions-grid-solar-system-solution');
-  const btn = document.getElementById('solutions-toggle-btn-solar-system-solution');
+  const grid = document.getElementById('solutions-grid-battery-solution');
+  const btn = document.getElementById('solutions-toggle-btn-battery-solution');
   if (!grid || !btn) return;
 
   function setState(expanded) {
-    grid.classList.toggle('is-collapsed-solar-system-solution', !expanded);
+    grid.classList.toggle('is-collapsed-battery-solution', !expanded);
     btn.setAttribute('aria-expanded', String(expanded));
     btn.textContent = expanded ? 'View Fewer' : 'View All Solutions';
 
@@ -287,9 +287,9 @@ function smoothScrollTo(targetSelector) {
    Projects carousel: arrows scroll by one full "page"
    ========================================================== */
 (function initProjectsCarousel() {
-  const viewport = document.getElementById('projects-viewport-solar-system-projects');
-  const prevBtn = document.querySelector('.prev-solar-system-projects');
-  const nextBtn = document.querySelector('.next-solar-system-projects');
+  const viewport = document.getElementById('projects-viewport-battery-projects');
+  const prevBtn = document.querySelector('.prev-battery-projects');
+  const nextBtn = document.querySelector('.next-battery-projects');
   if (!viewport || !prevBtn || !nextBtn) return;
 
   function updateButtons() {
@@ -326,11 +326,11 @@ function smoothScrollTo(targetSelector) {
    Types tabs: click/keyboard + hash support
    ========================================================== */
 (function initSolarTypes() {
-  const tabs = Array.from(document.querySelectorAll('.tab-btn-solar-system-types'));
+  const tabs = Array.from(document.querySelectorAll('.tab-btn-battery-types'));
   const panels = {
-    'on-grid': document.getElementById('panel-on-grid-solar-system-types'),
-    'off-grid': document.getElementById('panel-off-grid-solar-system-types'),
-    'hybrid': document.getElementById('panel-hybrid-solar-system-types')
+    'on-grid': document.getElementById('panel-on-grid-battery-types'),
+    'off-grid': document.getElementById('panel-off-grid-battery-types'),
+    'hybrid': document.getElementById('panel-hybrid-battery-types')
   };
   if (!tabs.length) return;
 
@@ -338,7 +338,7 @@ function smoothScrollTo(targetSelector) {
     // tabs
     tabs.forEach(btn => {
       const isActive = btn.dataset.type === type;
-      btn.classList.toggle('is-active-solar-system-types', isActive);
+      btn.classList.toggle('is-active-battery-types', isActive);
       btn.setAttribute('aria-selected', String(isActive));
       // tabindex for roving focus
       btn.setAttribute('tabindex', isActive ? '0' : '-1');
@@ -347,7 +347,7 @@ function smoothScrollTo(targetSelector) {
     Object.entries(panels).forEach(([key, el]) => {
       const show = key === type;
       if (!el) return;
-      el.classList.toggle('is-active-solar-system-types', show);
+      el.classList.toggle('is-active-battery-types', show);
       el.hidden = !show;
       if (show) {
         // restart small fade-in animation
@@ -360,8 +360,8 @@ function smoothScrollTo(targetSelector) {
   tabs.forEach(btn => btn.addEventListener('click', () => activate(btn.dataset.type)));
 
   // Keyboard: left/right arrows
-  document.querySelector('.tabs-solar-system-types')?.addEventListener('keydown', (e) => {
-    const idx = tabs.findIndex(b => b.classList.contains('is-active-solar-system-types'));
+  document.querySelector('.tabs-battery-types')?.addEventListener('keydown', (e) => {
+    const idx = tabs.findIndex(b => b.classList.contains('is-active-battery-types'));
     if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
       e.preventDefault();
       const dir = e.key === 'ArrowRight' ? 1 : -1;
@@ -383,23 +383,23 @@ function smoothScrollTo(targetSelector) {
   fromHash();
 })();
 /* ==========================================================
-   Scoped tabs for all .section-types-solar-system-types
+   Scoped tabs for all .section-types-battery-types
    (no global getElementById; supports multiple instances)
    ========================================================== */
 (function initAllSolarTypeTabs() {
-  document.querySelectorAll('.section-types-solar-system-types').forEach(section => {
-    const tabsWrap = section.querySelector('.tabs-solar-system-types');
+  document.querySelectorAll('.section-types-battery-types').forEach(section => {
+    const tabsWrap = section.querySelector('.tabs-battery-types');
     if (!tabsWrap) return;
 
-    const tabs = Array.from(section.querySelectorAll('.tab-btn-solar-system-types'));
-    const panels = Array.from(section.querySelectorAll('.panel-solar-system-types'));
+    const tabs = Array.from(section.querySelectorAll('.tab-btn-battery-types'));
+    const panels = Array.from(section.querySelectorAll('.panel-battery-types'));
     if (!tabs.length || !panels.length) return;
 
     function activate(btn) {
       // Tabs state
       tabs.forEach(t => {
         const isActive = t === btn;
-        t.classList.toggle('is-active-solar-system-types', isActive);
+        t.classList.toggle('is-active-battery-types', isActive);
         t.setAttribute('aria-selected', String(isActive));
         t.setAttribute('tabindex', isActive ? '0' : '-1');
       });
@@ -409,7 +409,7 @@ function smoothScrollTo(targetSelector) {
       panels.forEach(p => {
         const show = p.id === targetId;
         p.hidden = !show;
-        p.classList.toggle('is-active-solar-system-types', show);
+        p.classList.toggle('is-active-battery-types', show);
         if (show) { p.style.animation = 'none'; p.offsetHeight; p.style.animation = ''; }
       });
     }
@@ -421,7 +421,7 @@ function smoothScrollTo(targetSelector) {
     tabsWrap.addEventListener('keydown', (e) => {
       if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
       e.preventDefault();
-      const current = tabs.findIndex(t => t.classList.contains('is-active-solar-system-types'));
+      const current = tabs.findIndex(t => t.classList.contains('is-active-battery-types'));
       const dir = e.key === 'ArrowRight' ? 1 : -1;
       const next = (current + dir + tabs.length) % tabs.length;
       tabs[next].focus();
@@ -429,7 +429,7 @@ function smoothScrollTo(targetSelector) {
     });
 
     // Init: use the one marked active or the first
-    activate(tabs.find(t => t.classList.contains('is-active-solar-system-types')) || tabs[0]);
+    activate(tabs.find(t => t.classList.contains('is-active-battery-types')) || tabs[0]);
   });
 })();
 
@@ -438,16 +438,16 @@ function smoothScrollTo(targetSelector) {
 (function () {
   const els = document.querySelectorAll('.reveal-up');
   if (!('IntersectionObserver' in window) || !els.length) {
-    els.forEach(el => el.classList.add('is-visible-mobility'));
+    els.forEach(el => el.classList.add('is-visible-battery'));
     return;
   }
 
   const io = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible-mobility');
+        entry.target.classList.add('is-visible-battery');
       } else {
-        entry.target.classList.remove('is-visible-mobility');
+        entry.target.classList.remove('is-visible-battery');
       }
     });
   }, { threshold: 0.18 });
@@ -457,8 +457,8 @@ function smoothScrollTo(targetSelector) {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  const tabs = document.querySelectorAll('.-gemini-tab');
-  const contents = document.querySelectorAll('.-gemini-content');
+  const tabs = document.querySelectorAll('.battery-about-tab');
+  const contents = document.querySelectorAll('.battery-about-content');
 
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
@@ -481,7 +481,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Set the default active tab and content on page load
-  const defaultTab = document.querySelector('.-gemini-tab[data-tab="mission"]');
+  const defaultTab = document.querySelector('.battery-about-tab[data-tab="mission"]');
   const defaultContent = document.getElementById('mission-content');
 
   if (defaultTab && defaultContent) {
@@ -491,17 +491,17 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 (function () {
-  const grid = document.getElementById('grid-neplan-card-with-animation');
+  const grid = document.getElementById('grid-battery-card-with-animation');
   if (!grid) return;
-  const cards = grid.querySelectorAll('.card-neplan-card-with-animation');
+  const cards = grid.querySelectorAll('.card-battery-card-with-animation');
 
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        e.target.classList.add('show-neplan-card-with-animation');
+        e.target.classList.add('show-battery-card-with-animation');
       } else {
         // remove so it replays when scrolling back (LIFO feel)
-        e.target.classList.remove('show-neplan-card-with-animation');
+        e.target.classList.remove('show-battery-card-with-animation');
       }
     });
   }, { threshold: 0.18 });
@@ -543,11 +543,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* Intersection Observer for gentle reveals */
 (function () {
-  const items = document.querySelectorAll('.reveal-lv-electrical-panel-');
+  const items = document.querySelectorAll('.reveal-battery-panel-');
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        e.target.classList.add('reveal-in-lv-electrical-panel-');
+        e.target.classList.add('reveal-in-battery-panel-');
         io.unobserve(e.target);
       }
     });
@@ -556,7 +556,7 @@ document.addEventListener('DOMContentLoaded', () => {
   items.forEach(el => io.observe(el));
 
   /* Simple form handler (prevent empty submit in demo) */
-  const form = document.getElementById('service-form-lv-electrical-panel-');
+  const form = document.getElementById('service-form-battery-panel-');
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
     const fd = new FormData(form);
@@ -571,16 +571,16 @@ document.addEventListener('DOMContentLoaded', () => {
 (function () {
   const els = document.querySelectorAll('.reveal-up');
   if (!('IntersectionObserver' in window) || !els.length) {
-    els.forEach(el => el.classList.add('is-visible-mobility'));
+    els.forEach(el => el.classList.add('is-visible-battery'));
     return;
   }
 
   const io = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible-mobility');
+        entry.target.classList.add('is-visible-battery');
       } else {
-        entry.target.classList.remove('is-visible-mobility');
+        entry.target.classList.remove('is-visible-battery');
       }
     });
   }, { threshold: 0.18 });
@@ -590,8 +590,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  const tabs = document.querySelectorAll('.-gemini-tab');
-  const contents = document.querySelectorAll('.-gemini-content');
+  const tabs = document.querySelectorAll('.battery-about-tab');
+  const contents = document.querySelectorAll('.battery-about-content');
 
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
@@ -614,7 +614,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Set the default active tab and content on page load
-  const defaultTab = document.querySelector('.-gemini-tab[data-tab="mission"]');
+  const defaultTab = document.querySelector('.battery-about-tab[data-tab="mission"]');
   const defaultContent = document.getElementById('mission-content');
 
   if (defaultTab && defaultContent) {
@@ -624,17 +624,17 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 (function () {
-  const grid = document.getElementById('grid-neplan-card-with-animation');
+  const grid = document.getElementById('grid-battery-card-with-animation');
   if (!grid) return;
-  const cards = grid.querySelectorAll('.card-neplan-card-with-animation');
+  const cards = grid.querySelectorAll('.card-battery-card-with-animation');
 
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        e.target.classList.add('show-neplan-card-with-animation');
+        e.target.classList.add('show-battery-card-with-animation');
       } else {
         // remove so it replays when scrolling back (LIFO feel)
-        e.target.classList.remove('show-neplan-card-with-animation');
+        e.target.classList.remove('show-battery-card-with-animation');
       }
     });
   }, { threshold: 0.18 });
@@ -676,11 +676,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* Simple reveal on scroll */
 (() => {
-  const els = document.querySelectorAll('.reveal-lv-electrical-panel-');
+  const els = document.querySelectorAll('.reveal-battery-panel-');
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        e.target.classList.add('reveal-in-lv-electrical-panel-');
+        e.target.classList.add('reveal-in-battery-panel-');
         io.unobserve(e.target);
       }
     });
@@ -691,11 +691,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Reveal on scroll for the About section
 (() => {
-  const items = document.querySelectorAll('.reveal-lv-electrical-about-');
+  const items = document.querySelectorAll('.reveal-battery-about-');
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        e.target.classList.add('reveal-in-lv-electrical-about-');
+        e.target.classList.add('reveal-in-battery-about-');
         io.unobserve(e.target);
       }
     });
@@ -705,12 +705,12 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 (() => {
   const els = document.querySelectorAll(
-    '.reveal-left-lv-electrical-services, .reveal-right-lv-electrical-services, .reveal-up-lv-electrical-services'
+    '.reveal-left-battery-services, .reveal-right-battery-services, .reveal-up-battery-services'
   );
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        e.target.classList.add('reveal-in-lv-electrical-services');
+        e.target.classList.add('reveal-in-battery-services');
         io.unobserve(e.target);
       }
     });
@@ -720,12 +720,12 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 (() => {
   const els = document.querySelectorAll(
-    '.reveal-left-lv-electrical-services, .reveal-right-lv-electrical-services, .reveal-up-lv-electrical-services'
+    '.reveal-left-battery-services, .reveal-right-battery-services, .reveal-up-battery-services'
   );
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        e.target.classList.add('reveal-in-lv-electrical-services');
+        e.target.classList.add('reveal-in-battery-services');
         io.unobserve(e.target);
       }
     });
@@ -734,12 +734,12 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 (() => {
   const els = document.querySelectorAll(
-    '.reveal-left-lv-electrical-services, .reveal-right-lv-electrical-services, .reveal-up-lv-electrical-services'
+    '.reveal-left-battery-services, .reveal-right-battery-services, .reveal-up-battery-services'
   );
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        e.target.classList.add('reveal-in-lv-electrical-services');
+        e.target.classList.add('reveal-in-battery-services');
         io.unobserve(e.target);
       }
     });
@@ -749,12 +749,12 @@ document.addEventListener('DOMContentLoaded', () => {
 // Simple reveal on scroll for the process section
 (() => {
   const els = document.querySelectorAll(
-    '.reveal-left-lv-electrical-process, .reveal-right-lv-electrical-process'
+    '.reveal-left-battery-process, .reveal-right-battery-process'
   );
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        e.target.classList.add('reveal-in-lv-electrical-process');
+        e.target.classList.add('reveal-in-battery-process');
         io.unobserve(e.target);
       }
     });
@@ -765,12 +765,12 @@ document.addEventListener('DOMContentLoaded', () => {
 // Reveal-on-scroll for the Why Choose Us section
 (() => {
   const targets = document.querySelectorAll(
-    '.reveal-left-le-electrical-why-us, .reveal-right-le-electrical-why-us, .reveal-top-le-electrical-why-us, .reveal-bottom-le-electrical-why-us'
+    '.reveal-left--battery-why-us, .reveal-right--battery-why-us, .reveal-top--battery-why-us, .reveal-bottom--battery-why-us'
   );
   const io = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('reveal-in-le-electrical-why-us');
+        entry.target.classList.add('reveal-in--battery-why-us');
         io.unobserve(entry.target);
       }
     });
@@ -812,7 +812,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <ul>
       <li><strong>Commercial & Industrial ESS:</strong> peak-shaving, backup, load-shifting, and PV self-consumption.</li>
       <li><strong>Renewables & Microgrids:</strong> smoothing, firming, black-start, and islanded operation.</li>
-      <li><strong>EV/HEV & e-Mobility:</strong> traction batteries and fast-charge buffer systems.</li>
+      <li><strong>EV/HEV & e-battery:</strong> traction batteries and fast-charge buffer systems.</li>
       <li><strong>Data Centers & Healthcare:</strong> clean, reliable backup with rapid response.</li>
       <li><strong>Telecom & Utilities:</strong> DC plants, substation support, and remote sites.</li>
     </ul>
@@ -852,7 +852,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <li><strong>Telecom & Networks:</strong> 48 V DC plants, outdoor cabinets, remote sites.</li>
       <li><strong>Security & Fire Systems:</strong> standby power for critical infrastructure.</li>
       <li><strong>Renewables & Off-grid:</strong> solar storage, hybrid systems.</li>
-      <li><strong>Mobility & Industrial:</strong> forklifts, AGVs, marine, and auxiliary power.</li>
+      <li><strong>battery & Industrial:</strong> forklifts, AGVs, marine, and auxiliary power.</li>
     </ul>
 
     <h4>Where They Are Used</h4>
@@ -960,7 +960,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <ul>
       <li><strong>Battery Electric Vehicles (BEV)</strong> – cars, buses, trucks, material handling.</li>
       <li><strong>Hybrid Electric Vehicles (HEV/PHEV)</strong> – traction + regenerative braking storage.</li>
-      <li><strong>Light electric mobility</strong> – three-wheelers, utility carts, last-mile delivery.</li>
+      <li><strong>Light electric battery</strong> – three-wheelers, utility carts, last-mile delivery.</li>
     </ul>
 
     <h4>Integration &amp; Services</h4>
@@ -1137,7 +1137,7 @@ bms: {
 
   // --- CLICK HANDLER (delegated) ---
   grid.addEventListener('click', (e) => {
-    const btn = e.target.closest('.svc-cta-lv-electrical-services');
+    const btn = e.target.closest('.svc-cta-battery-services');
     if (!btn) return;
     const key = btn.getAttribute('data-detail');
     const currentTitle = detail.querySelector('h3')?.textContent || '';
@@ -1150,7 +1150,7 @@ bms: {
 
   // --- EXPLORE / VIEW LESS toggle (uses .is-hidden on extra cards) ---
   if (exploreBtn) {
-    const allCards = Array.from(grid.querySelectorAll('.svc-item-lv-electrical-services'));
+    const allCards = Array.from(grid.querySelectorAll('.svc-item-battery-services'));
     const extraCards = allCards.slice(3); // cards 4..7
     let expanded = false;
 
@@ -1170,7 +1170,7 @@ bms: {
       }
       // retrigger reveal animations if you use them
       extraCards.forEach(el => {
-        el.classList.remove('reveal-in-lv-electrical-services');
+        el.classList.remove('reveal-in-battery-services');
         void el.offsetWidth;
       });
     }
@@ -1186,14 +1186,14 @@ bms: {
 
   // --- SCROLL REVEAL (bi-directional) ---
   const revealEls = document.querySelectorAll(
-    '.reveal-left-lv-electrical-services, .reveal-right-lv-electrical-services, .reveal-up-lv-electrical-services'
+    '.reveal-left-battery-services, .reveal-right-battery-services, .reveal-up-battery-services'
   );
   const io = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('reveal-in-lv-electrical-services');
+        entry.target.classList.add('reveal-in-battery-services');
       } else {
-        entry.target.classList.remove('reveal-in-lv-electrical-services');
+        entry.target.classList.remove('reveal-in-battery-services');
       }
     });
   }, { threshold: 0.2, rootMargin: '0px 0px -10% 0px' });
@@ -1202,7 +1202,7 @@ bms: {
 (() => {
   const modal = document.getElementById('csc-modal');
   const form = document.getElementById('csc-form');
-  const close = modal.querySelector('.modal-close-csc-solar-system-csc-products');
+  const close = modal.querySelector('.modal-close-csc-battery-csc-products');
   const successPane = document.getElementById('csc-success');
   const docNameInput = document.getElementById('csc-doc-name');
 
@@ -1220,7 +1220,7 @@ bms: {
   }
 
   // Open from each "Request Download" button
-  document.querySelectorAll('.request-download-csc-solar-system-csc-products').forEach(btn => {
+  document.querySelectorAll('.request-download-csc-battery-csc-products').forEach(btn => {
     btn.addEventListener('click', () => {
       docNameInput.value = btn.dataset.doc || '';
       openModal();
@@ -1229,7 +1229,7 @@ bms: {
 
   // Close handlers
   close.addEventListener('click', closeModal);
-  modal.querySelector('.modal-backdrop-csc-solar-system-csc-products')
+  modal.querySelector('.modal-backdrop-csc-battery-csc-products')
     .addEventListener('click', closeModal);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 })();

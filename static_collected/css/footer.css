@@ -1,4 +1,3 @@
-/* ================= FOOTER ================= */
 
 .footer {
   background-color: #000;
@@ -7,7 +6,7 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* Main container */
+
 .footer-container {
   max-width: 1200px;
   margin: 0 auto;
